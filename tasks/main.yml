@@ -1,13 +1,17 @@
 - name: Install and update default packages
   apt: name={{ item }} state=current
   with_items:
-    - git
+    - build-essentials
     - zsh
-    - firefox
+    - git
     - vim-gnome
+    - emacs
     - mlocate
+    - firefox
     - wine
     - libreoffice
+    - vlc
+    - gimp
 
 - name: Global dconf configuration
   copy: src=etc/dconf/{{ item }} dest=/etc/dconf/{{ item }} owner=root group=root mode=0755
