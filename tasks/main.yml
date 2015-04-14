@@ -1,18 +1,34 @@
 - name: Install and update default packages
+  apt_repository: repo="{{item}}" state=present
+  with-items:
+    - ppa:keithw/mosh
+    - ppa:klaus-vormweg/awesome
+    - ppa:otto-kesselgulasch/gimp
+    - ppa:videolan/stable-daily
+    - deb http://archive.canonical.com/ trusty partner
+    - deb http://dl.google.com/linux/deb/ stable main
   apt: name={{ item }} state=present
   with_items:
+    - awesome
     - build-essentials
+    - eclipse
     - emacs
     - firefox
     - gimp
+    - gimp-data
+    - gimp-data-extras
+    - gimp-plugin-registry
     - git
     - libreoffice
     - mlocate
+    - mosh
+    - mpv
+    - tmux
+    - ubuntu-restricted-extras
     - vim-gnome
     - vlc
     - wine
     - zsh
-
 - name: Global dconf configuration
   copy: src=etc/dconf/{{ item }} dest=/etc/dconf/{{ item }} owner=root group=root mode=0755
   with_items:
