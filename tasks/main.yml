@@ -1,0 +1,10 @@
+- name: Install and update default packages
+  apt: name={{ item }} state=current
+  with_items:
+    - git
+    - zsh
+    - firefox
+    - vim-gnome
+    - mlocate
+    - wine
+    - libreoffice
