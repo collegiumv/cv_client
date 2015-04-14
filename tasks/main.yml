@@ -8,3 +8,9 @@
     - mlocate
     - wine
     - libreoffice
+
+- name: Global dconf configuration
+  copy: src=etc/dconf/{{ item }} dest=/etc/dconf/{{ item }} owner=root group=root mode=0755
+  with_items:
+    - db/profile/user
+    - db/local.d/user-switching
