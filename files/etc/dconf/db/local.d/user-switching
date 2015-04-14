@@ -1,0 +1,5 @@
+[org/gnome/desktop/lockdown]
+disable-user-switching=true
+
+[com/canonical/indicator/session]
+user-show-menu=false
