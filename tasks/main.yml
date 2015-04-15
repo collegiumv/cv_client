@@ -1,40 +1,55 @@
+---
 - name: Add PPAs
   apt_repository: repo={{ item }} state=present
-  with-items:
+  with_items:
     - ppa:keithw/mosh
     - ppa:klaus-vormweg/awesome
     - ppa:otto-kesselgulasch/gimp
     - ppa:videolan/stable-daily
-    - deb http://archive.canonical.com/ trusty partner
-    - deb http://dl.google.com/linux/deb/ stable main
 
 - name: Install and update default packages
   apt: name={{ item }} state=present
   with_items:
     - awesome
-    - build-essentials
+    - build-essential
     - eclipse
     - emacs
     - firefox
+    - gap
     - gimp
     - gimp-data
     - gimp-data-extras
     - gimp-plugin-registry
     - git
-    - google-chrome-stable
+    - htop
+    - i3
+    - inkscape
     - libreoffice
     - mlocate
     - mosh
     - mpv
+    - openjdk-7-jdk
+    - redshift
+    - spim
+    - tcpdump
+    - texlive
+    - texmaker
+    - texstudio
     - tmux
     - ubuntu-restricted-extras
-    - vim-gnome
+    - vim-gtk
     - vlc
     - wine
     - zsh
 
+- name: Make folders for dconf configuration
+  file: path=/etc/dconf/db/{{ item }} state=directory owner=root group=root mode=0755
+  with_items:
+    - profile
+    - local.d
+
 - name: Global dconf configuration
-  copy: src=etc/dconf/{{ item }} dest=/etc/dconf/{{ item }} owner=root group=root mode=0755
+  copy: src=etc/dconf/{{ item }} dest=/etc/dconf/{{ item }} owner=root group=root mode=0644
   with_items:
     - db/profile/user
     - db/local.d/user-switching
