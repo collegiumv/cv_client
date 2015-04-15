@@ -1,5 +1,5 @@
-- name: Install and update default packages
-  apt_repository: repo="{{item}}" state=present
+- name: Add PPAs
+  apt_repository: repo={{ item }} state=present
   with-items:
     - ppa:keithw/mosh
     - ppa:klaus-vormweg/awesome
@@ -7,6 +7,8 @@
     - ppa:videolan/stable-daily
     - deb http://archive.canonical.com/ trusty partner
     - deb http://dl.google.com/linux/deb/ stable main
+    
+- name: Install and update default packages
   apt: name={{ item }} state=present
   with_items:
     - awesome
@@ -30,6 +32,7 @@
     - vlc
     - wine
     - zsh
+
 - name: Global dconf configuration
   copy: src=etc/dconf/{{ item }} dest=/etc/dconf/{{ item }} owner=root group=root mode=0755
   with_items:
