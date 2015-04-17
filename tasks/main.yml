@@ -30,6 +30,8 @@
     - mpv
     - openjdk-7-jdk
     - redshift
+    - rxvt-unicode-256color
+    - sl
     - spim
     - tcpdump
     - texlive
