@@ -27,6 +27,7 @@
     - i3
     - inkscape
     - libreoffice
+    - lightdm
     - mlocate
     - mosh
     - mpv
@@ -41,6 +42,7 @@
     - texstudio
     - tmux
     - ubuntu-restricted-extras
+    - unity-greeter
     - vim-gtk
     - vlc
     - wine
