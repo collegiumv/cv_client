@@ -8,12 +8,17 @@
     - ppa:videolan/stable-daily
     - ppa:lestcape/cinnamon
 
-- name: Install and update default packages
+- name: Install graphical environments
   apt: name={{ item }} state=present
   with_items:
     - awesome
-    - build-essential
     - cinnamon
+    - i3
+
+- name: Install and update default packages
+  apt: name={{ item }} state=present
+  with_items:
+    - build-essential
     - eclipse
     - emacs
     - firefox
@@ -24,10 +29,8 @@
     - gimp-plugin-registry
     - git
     - htop
-    - i3
     - inkscape
     - libreoffice
-    - lightdm
     - mlocate
     - mosh
     - mpv
@@ -42,7 +45,6 @@
     - texstudio
     - tmux
     - ubuntu-restricted-extras
-    - unity-greeter
     - vim-gtk
     - vlc
     - wine
