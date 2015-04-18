@@ -15,38 +15,54 @@
     - cinnamon
     - i3
 
-- name: Install and update default packages
+- name: Install editing suites
   apt: name={{ item }} state=present
   with_items:
-    - build-essential
-    - eclipse
-    - emacs
-    - firefox
-    - gap
     - gimp
     - gimp-data
     - gimp-data-extras
     - gimp-plugin-registry
-    - git
-    - htop
     - inkscape
     - libreoffice
-    - mlocate
-    - mosh
-    - mpv
-    - openjdk-7-jdk
-    - redshift
-    - rxvt-unicode-256color
-    - sl
-    - spim
-    - tcpdump
     - texlive
     - texmaker
     - texstudio
+
+- name: Install programming tools
+  apt: name={{ item }} state=present
+  with_items:
+    - build-essential
+    - eclipse
+    - git
+    - openjdk-7-jdk
+    - spim
+
+- name: Install additional editors
+  apt: name={{ item }} state=present
+  with_items:
+    - emacs
+    - vim-gtk
+
+- name: Install media playback programs
+  apt: name={{ item }} state=present
+  with_items:
+    - mpv
+    - vlc
+
+- name: Install additional misc. programs
+  apt: name={{ item }} state=present
+  with_items:
+    - firefox
+    - gap
+    - htop
+    - mlocate
+    - mosh
+    - redshift
+    - rxvt-unicode-256color
+    - sl
+    - tcpdump
     - tmux
     - ubuntu-restricted-extras
-    - vim-gtk
-    - vlc
     - wine
     - zsh
 
