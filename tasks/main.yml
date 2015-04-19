@@ -14,6 +14,12 @@
     - awesome
     - cinnamon
     - i3
+    - xfce4
+  notify:
+    - lightdm
+
+- name: Set default graphical shell
+  copy: src=50-ubuntu.conf dest=/usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf owner=root group=root mode=0644
 
 - name: Install editing suites
   apt: name={{ item }} state=present
