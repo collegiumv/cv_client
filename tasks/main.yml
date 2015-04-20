@@ -11,6 +11,7 @@
 - name: Install graphical environments
   apt: name={{ item }} state=present
   with_items:
+    - ubuntu-desktop
     - awesome
     - cinnamon
     - i3
