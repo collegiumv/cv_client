@@ -19,9 +19,6 @@
   notify:
     - lightdm
 
-- name: Set default graphical shell
-  copy: src=50-ubuntu.conf dest=/usr/share/lightdm/lightdm.conf.d/50-ubuntu.conf owner=root group=root mode=0644
-
 - name: Install editing suites
   apt: name={{ item }} state=present
   with_items:
@@ -74,25 +71,26 @@
     - wine
     - zsh
 
- - name: Check to see if default awesome conf is already moved
-   stat: path=/etc/xdg/awesome/rc.lua.default
-   register: default_awesome
+- include: greeter.yml
 
- - name: Move awesome rc.lua to rc.lua.default
-   command: mv /etc/xdg/awesome/rc.lua /etc/xdg/awesome/rc.lua.default
-   when: default_awesome.stat.exists == False
+- name: Check to see if default awesome conf is already moved
+  stat: path=/etc/xdg/awesome/rc.lua.default
+  register: default_awesome
 
- - name: Check to see if default i3 conf is already moved
-   stat: path=/etc/i3/config.default
-   register: default_i3
+- name: Move awesome rc.lua to rc.lua.default
+  command: mv /etc/xdg/awesome/rc.lua /etc/xdg/awesome/rc.lua.default
+  when: default_awesome.stat.exists == False
 
- - name: Move i3 config to config.default
-   command: mv /etc/i3/config /etc/i3/config.default
-   when: default_i3.stat.exists == False
+- name: Check to see if default i3 conf is already moved
+  stat: path=/etc/i3/config.default
+  register: default_i3
 
- - name: Copy over our non-friendly awesome config
-   copy: src=awesome.conf dest=/etc/xdg/awesome/rc.lua owner=root group=root mode=0644
+- name: Move i3 config to config.default
+  command: mv /etc/i3/config /etc/i3/config.default
+  when: default_i3.stat.exists == False
 
- - name: Copy over our non-friendly i3 config
-   copy: src=i3.conf dest=/etc/i3/config owner=root group=root mode=0644
+- name: Copy over our non-friendly awesome config
+  copy: src=awesome.conf dest=/etc/xdg/awesome/rc.lua owner=root group=root mode=0644
 
+- name: Copy over our non-friendly i3 config
+  copy: src=i3.conf dest=/etc/i3/config owner=root group=root mode=0644

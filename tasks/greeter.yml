@@ -1,0 +1,29 @@
+---
+- name: Install graphical environments
+  apt: name={{ item }} state=present
+  with_items:
+    - lightdm-webkit-greeter
+    - imagemagick
+
+- name: Copy themes folder
+  copy: src=lightdm-webkit-cv dest=/usr/share/lightdm-webkit/themes/ owner=root group=root directory_mode=0755 mode=0644
+
+- name: Create override directory (lightdm)
+  file: path=/usr/share/lightdm.d/ state=directory owner=root group=root mode=0755
+
+- name: Copy override file (lightdm)
+  copy: src=90-lightdm-webkit-cv.conf dest=/usr/share/lightdm.d/lightdm-webkit-cv.conf owner=root group=root mode=0644
+
+- name: Copy override file (lightdm-webkit-greeter)
+  copy: src=lightdm-webkit-greeter.conf dest=/etc/lightdm/lightdm-webkit-greeter.conf force=yes owner=root group=root mode=0644
+
+- name: Download assets
+  get_url: url={{ item }} dest=/usr/share/lightdm-webkit/themes/lightdm-webkit-cv/ owner=root group=root mode=0644
+  with_items:
+    - http://code.jquery.com/jquery-2.1.4.min.js
+    - http://upload.wikimedia.org/wikipedia/commons/c/c6/VISTA%27s_infrared_view_of_the_Orion_Nebula.jpg
+
+- name: Scale Wallpaper down
+  command: convert /usr/share/lightdm-webkit/themes/lightdm-webkit-cv/VISTA%27s_infrared_view_of_the_Orion_Nebula.jpg -resize 3000x3000 -rotate 90 /usr/share/lightdm-webkit/themes/lightdm-webkit-cv/wallpaper.jpg
+  args:
+    creates: /usr/share/lightdm-webkit/themes/lightdm-webkit-cv/wallpaper.jpg

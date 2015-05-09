@@ -1,0 +1,13 @@
+# Creates a lightdm-webkit-greeter theme for lightdm-webkit-cv theme
+# Name: Defines the theme name (and thereby the folder name)
+# Desription: Sets the theme description (I don't actually know where this is used...)
+# Engine: The display engine to use
+# Url: URL for the main theme file
+# Default session (you don't actually need this here)
+
+[theme]
+name=lightdm-webkit-cv
+description=Collegium V ldm greeter
+engine=lightdm-webkit-greeter
+url=index.html
+session=cinnamon
