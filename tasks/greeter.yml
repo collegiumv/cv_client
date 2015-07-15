@@ -9,10 +9,10 @@
   copy: src=lightdm-webkit-cv dest=/usr/share/lightdm-webkit/themes/ owner=root group=root directory_mode=0755 mode=0644
 
 - name: Create override directory (lightdm)
-  file: path=/usr/share/lightdm.d/ state=directory owner=root group=root mode=0755
+  file: path=/usr/share/lightdm/lightdm.conf.d/ state=directory owner=root group=root mode=0755
 
 - name: Copy override file (lightdm)
-  copy: src=90-lightdm-webkit-cv.conf dest=/usr/share/lightdm.d/lightdm-webkit-cv.conf owner=root group=root mode=0644
+  copy: src=90-lightdm-webkit-cv.conf dest=/usr/share/lightdm/lightdm.conf.d/90-lightdm-webkit-cv.conf owner=root group=root mode=0644
 
 - name: Copy override file (lightdm-webkit-greeter)
   copy: src=lightdm-webkit-greeter.conf dest=/etc/lightdm/lightdm-webkit-greeter.conf force=yes owner=root group=root mode=0644
