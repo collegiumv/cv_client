@@ -94,3 +94,6 @@
 
 - name: Copy over our non-friendly i3 config
   copy: src=i3.conf dest=/etc/i3/config owner=root group=root mode=0644
+
+- name: Disable Apport
+  copy: src=apport.default dest=/etc/default/apport owner=root group=root mode=0644
