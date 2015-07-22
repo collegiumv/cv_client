@@ -13,7 +13,7 @@
   with_items:
     - ubuntu-desktop
     - awesome
-    - cinnamon
+    - lubuntu-desktop
     - i3
     - xfce4
   notify:
