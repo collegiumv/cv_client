@@ -1,4 +1,8 @@
 ---
+- name: Configure firewall
+  copy: src=client.rules dest=/etc/iptables.d/client.rules owner=root group=root mode=0640
+  notify:
+  - iptables
 - name: Add PPAs
   apt_repository: repo={{ item }} state=present
   with_items:
