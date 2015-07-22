@@ -8,16 +8,14 @@
   with_items:
     - ppa:keithw/mosh
     - ppa:klaus-vormweg/awesome
-    - ppa:otto-kesselgulasch/gimp
     - ppa:videolan/stable-daily
     - ppa:lestcape/cinnamon
 
 - name: Install graphical environments
   apt: name={{ item }} state=present
   with_items:
-    - ubuntu-desktop
-    - awesome
     - lubuntu-desktop
+    - awesome
     - i3
     - xfce4
   notify:
