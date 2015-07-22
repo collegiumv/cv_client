@@ -97,3 +97,6 @@
 
 - name: Disable Apport
   copy: src=apport.default dest=/etc/default/apport owner=root group=root mode=0644
+
+- name: Remove Update manager
+  apt: pkg=update-manager state=absent
