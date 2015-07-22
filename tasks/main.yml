@@ -100,3 +100,6 @@
 
 - name: Remove Update manager
   apt: pkg=update-manager state=absent
+
+- name: Remove Software Center
+  apt: pkg=software-center state=absent
