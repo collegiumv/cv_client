@@ -73,6 +73,9 @@
     - wine
     - zsh
 
+- name: Copy fix screens
+  copy: src=fixScreens dest=/usr/local/bin/fixScreens owner=root group=root mode=0755
+
 - include: greeter.yml
 
 - name: Check to see if default awesome conf is already moved
