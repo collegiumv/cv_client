@@ -1,3 +1,6 @@
 ---
 - name: lightdm
   debug: msg="You must restart LightDM to pick up changes"
+
+- name: grub
+  command: update-grub
