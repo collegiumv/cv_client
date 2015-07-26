@@ -108,3 +108,6 @@
 
 - name: Remove Software Center
   apt: pkg=software-center state=absent
+
+- name: Copy xscreensaver autostart
+  copy: src=xscreensaver.desktop dest=/etc/xdg/autostart/xscreensaver.desktop owner=root group=root mode=0644
