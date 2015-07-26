@@ -103,11 +103,8 @@
 - name: Disable Apport
   copy: src=apport.default dest=/etc/default/apport owner=root group=root mode=0644
 
-- name: Remove Update manager
-  apt: pkg=update-manager state=absent
-
-- name: Remove Software Center
-  apt: pkg=software-center state=absent
+- name: Disable update notifier autostart
+  file: path=/etc/xdg/autostart/update-notifier.desktop state=absent
 
 - name: Copy xscreensaver autostart
   copy: src=xscreensaver.desktop dest=/etc/xdg/autostart/xscreensaver.desktop owner=root group=root mode=0644
