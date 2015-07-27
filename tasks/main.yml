@@ -111,3 +111,9 @@
 
 - name: Copy xscreensaver autostart
   copy: src=xscreensaver.desktop dest=/etc/xdg/autostart/xscreensaver.desktop owner=root group=root mode=0644
+
+- name: Copy xscreensaver app-default config
+  copy: src=XScreenSaver dest=/usr/lib/X11/app-defaults/XScreenSaver owner=root group=root mode=0644
+
+- name: Copy xscreensaver default config
+  copy: src=xscreensaver-config dest=/usr/share/lubuntu/xscreensaver/xscreensaver owner=root group=root mode=0644
