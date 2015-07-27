@@ -66,6 +66,7 @@
     - mosh
     - redshift
     - rxvt-unicode-256color
+    - shutter
     - sl
     - tcpdump
     - tmux
