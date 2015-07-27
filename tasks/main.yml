@@ -16,6 +16,7 @@
   with_items:
     - lubuntu-desktop
     - awesome
+    - awesome-extra
     - i3
     - xfce4
   notify:
