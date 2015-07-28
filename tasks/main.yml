@@ -119,8 +119,11 @@
 - name: Disable update notifier autostart
   file: path=/etc/xdg/autostart/update-notifier.desktop state=absent
 
-- name: Copy xscreensaver autostart
-  copy: src=xscreensaver.desktop dest=/etc/xdg/autostart/xscreensaver.desktop owner=root group=root mode=0644
+- name: Copy xdg autostarts
+  copy: src={{ item }} dest=/etc/xdg/autostart/{{ item }} owner=root group=root mode=0644
+  with_items:
+    - xscreensaver.desktop
+    - pc-client-linux.desktop
 
 - name: Assures that app-default exists
   file: path=/usr/lib/X11/app-defaults state=directory
