@@ -3,6 +3,10 @@
   copy: src=client.rules dest=/etc/iptables.d/client.rules owner=root group=root mode=0640
   notify:
   - iptables
+
+- name: Add Google Chrome Signing Key
+  apt_key: url=https://dl.google.com/linux/linux_signing_key.pub state=present
+
 - name: Add PPAs
   apt_repository: repo={{ item }} state=present
   with_items:
@@ -10,6 +14,9 @@
     - ppa:klaus-vormweg/awesome
     - ppa:videolan/stable-daily
     - ppa:lestcape/cinnamon
+
+- name: Add Google Chrome Repository
+  apt_repository: repo='deb http://dl.google.com/linux/chrome/deb/ stable main' state=present
 
 - name: Install graphical environments
   apt: name={{ item }} state=present
@@ -60,6 +67,7 @@
   apt: name={{ item }} state=present
   with_items:
     - firefox
+    - google-chrome-stable
     - gap
     - htop
     - keepass2
@@ -74,6 +82,9 @@
     - ubuntu-restricted-extras
     - wine
     - zsh
+
+- name: Clobber Google-Chrome.list
+  file: path=/etc/apt/sources.list.d/google-chrome.list state=absent
 
 - name: Copy fix screens
   copy: src=fixScreens dest=/usr/local/bin/fixScreens owner=root group=root mode=0755
