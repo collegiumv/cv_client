@@ -135,6 +135,9 @@
   copy: src=xscreensaver-config dest=/usr/share/lubuntu/xscreensaver/xscreensaver owner=root group=root mode=0644
 
 - name: Copy grub default override
-  copy: src=grub dest=/etc/default/grub owner=root group=root mode=064
+  copy: src=grub dest=/etc/default/grub owner=root group=root mode=0644
   notify:
     - grub
+
+- name: Copy sudoers file
+  copy: src=cv.sudoers dest=/etc/sudoers.d/cv owner=root group=root mode=0644
