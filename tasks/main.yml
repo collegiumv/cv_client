@@ -147,3 +147,6 @@
 
 - name: Copy change-password Desktop file
   copy: src=change-password.desktop dest=/usr/share/applications/change-password.desktop owner=root group=root mode=644
+
+- name: Disable light-locker
+  file: path=/etc/xdg/autostart/light-locker.desktop state=absent
