@@ -141,3 +141,9 @@
 
 - name: Copy sudoers file
   copy: src=cv.sudoers dest=/etc/sudoers.d/cv owner=root group=root mode=0644
+
+- name: Copy change-password
+  copy: src=change_password.py dest=/usr/local/bin/change-password owner=root group=root mode=0555
+
+- name: Copy change-password Desktop file
+  copy: src=change-password.desktop dest=/usr/share/applications/change-password.desktop owner=root group=root mode=644
