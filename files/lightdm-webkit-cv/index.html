@@ -18,9 +18,14 @@
               contentAsHTML: true
         });
         });
+
+    document.addEventListener("contextmenu", function(e){
+	    e.preventDefault();
+    }, false);
+
     </script>
   </head>
-  <body>
+  <body oncontextmenu="return false">
     <div class="outer">
       <div class="inner">
        <div class="card signin-card">
