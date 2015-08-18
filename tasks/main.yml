@@ -83,6 +83,22 @@
     - wine
     - zsh
 
+- name: Check for WPS Office
+  stat: path=/opt/kingsoft
+  register: wps
+
+- name: Download WPS Office
+  get_url: url=http://kdl.cc.ksosoft.com/wps-community/download/a19/wps-office_9.1.0.4968~a19_amd64.deb dest=/tmp/wps-office_9.1.0.4968~a19_amd64.deb 
+  when: wps.stat.exists == False
+
+- name: Install WPS Office
+  apt: deb=/tmp/wps-office_9.1.0.4968~a19_amd64.deb state=present
+  when: wps.stat.exists == False
+
+- name: Remove WPS Office deb
+  file: path=/tmp/wps-office_9.1.0.4968~a19_amd64.deb state=absent
+  when: wps.stat.exists == False
+
 - name: Clobber Google-Chrome.list
   file: path=/etc/apt/sources.list.d/google-chrome.list state=absent
 
