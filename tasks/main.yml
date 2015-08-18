@@ -83,6 +83,16 @@
     - wine
     - zsh
 
+- name: Note Microsoft Fonts License
+  debconf: name=ttf-mscorefonts-installer question='msttcorefonts/noted-mscorefonts-eula' vtype=note
+
+- name: Accept Microsoft Fonts License
+  debconf: name=ttf-mscorefonts-installer question='msttcorefonts/accepted-mscorefonts-eula' value=true vtype=boolean
+
+- name: Install Microsoft Fonts
+  apt: name=ttf-mscorefonts-installer state=present
+  notify: fonts
+
 - name: Check for WPS Office
   stat: path=/opt/kingsoft
   register: wps

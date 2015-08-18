@@ -4,3 +4,6 @@
 
 - name: grub
   command: update-grub
+
+- name: fonts
+  command: fc-cache -f -v
