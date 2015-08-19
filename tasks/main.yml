@@ -8,9 +8,9 @@
   apt_key: url=https://dl.google.com/linux/linux_signing_key.pub state=present
   
 - name: Copy sane defaults
-  copy: src=defaults.list dest=/user/share/applications/defaults.list owner=root group=root mode=0644
+  copy: src=defaults.list dest=/usr/share/applications/defaults.list owner=root group=root mode=0644
 
-  - name: Add PPAs
+- name: Add PPAs
   apt_repository: repo={{ item }} state=present
   with_items:
     - ppa:keithw/mosh
@@ -35,13 +35,14 @@
 - name: Install editing suites
   apt: name={{ item }} state=present
   with_items:
+    - gedit
     - gimp
     - gimp-data
     - gimp-data-extras
     - gimp-plugin-registry
     - inkscape
     - libreoffice
-    - ocular
+    - okular
     - texlive
     - texmaker
     - texstudio
@@ -89,7 +90,7 @@
     - zsh
 
 - name: Note Microsoft Fonts License
-  debconf: name=ttf-mscorefonts-installer question='msttcorefonts/noted-mscorefonts-eula' vtype=note
+  debconf: name=ttf-mscorefonts-installer question='msttcorefonts/noted-mscorefonts-eula' value=true vtype=note
 
 - name: Accept Microsoft Fonts License
   debconf: name=ttf-mscorefonts-installer question='msttcorefonts/accepted-mscorefonts-eula' value=true vtype=boolean
