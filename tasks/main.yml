@@ -6,8 +6,11 @@
 
 - name: Add Google Chrome Signing Key
   apt_key: url=https://dl.google.com/linux/linux_signing_key.pub state=present
+  
+- name: Copy sane defaults
+  copy: src=defaults.list dest=/user/share/applications/defaults.list owner=root group=root mode=0644
 
-- name: Add PPAs
+  - name: Add PPAs
   apt_repository: repo={{ item }} state=present
   with_items:
     - ppa:keithw/mosh
@@ -60,6 +63,7 @@
 - name: Install media playback programs
   apt: name={{ item }} state=present
   with_items:
+    - audacity
     - mpv
     - vlc
 
