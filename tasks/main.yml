@@ -165,3 +165,4 @@
 
 - include: wps.yml
 
+- include: scanner.yml

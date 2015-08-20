@@ -1,0 +1,33 @@
+---
+- name: Check for iscan
+  stat: path=/usr/bin/iscan
+  register: iscan
+
+- name: Download scanner packages
+  get_url: url={{ item }} dest=/tmp/{{ item | regex_replace('.*/', '') }}
+  with_items:
+    - https://download3.ebz.epson.net/dsc/f/03/00/03/61/59/58f711258a6249e87d8a58997be17bc7e36f8339/iscan-data_1.36.0-1_all.deb
+    - https://download3.ebz.epson.net/dsc/f/03/00/03/61/59/f4209d1d1f3fbd44ccdcc6430e0aa2f6eb771d86/iscan_2.30.1-1~usb0.1.ltdl7_amd64.deb
+    - https://download3.ebz.epson.net/dsc/f/03/00/03/51/35/2bb85852bb07d419fa09653e76027ab61a7e0a95/iscan-plugin-gt-s650_1.1.0-2_amd64.deb
+  when: iscan.stat.exists == False
+
+- name: Install xsane
+  apt: name=xsane state=present
+
+- name: Install scanner packages
+  apt: deb=/tmp/{{ item | regex_replace('.*/', '') }} state=present
+  with_items:
+    - https://download3.ebz.epson.net/dsc/f/03/00/03/61/59/58f711258a6249e87d8a58997be17bc7e36f8339/iscan-data_1.36.0-1_all.deb
+  when: iscan.stat.exists == False
+
+- name: Install scanner packages
+  apt: deb=/tmp/{{ item | regex_replace('.*/', '') }} state=present
+  with_items:
+    - https://download3.ebz.epson.net/dsc/f/03/00/03/61/59/f4209d1d1f3fbd44ccdcc6430e0aa2f6eb771d86/iscan_2.30.1-1~usb0.1.ltdl7_amd64.deb
+  when: iscan.stat.exists == False
+
+- name: Install scanner packages
+  apt: deb=/tmp/{{ item | regex_replace('.*/', '') }} state=present
+  with_items:
+    - https://download3.ebz.epson.net/dsc/f/03/00/03/51/35/2bb85852bb07d419fa09653e76027ab61a7e0a95/iscan-plugin-gt-s650_1.1.0-2_amd64.deb
+  when: iscan.stat.exists == False
