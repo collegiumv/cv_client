@@ -7,9 +7,6 @@
 - name: Add Google Chrome Signing Key
   apt_key: url=https://dl.google.com/linux/linux_signing_key.pub state=present
   
-- name: Copy sane defaults
-  copy: src=defaults.list dest=/usr/share/applications/defaults.list owner=root group=root mode=0644
-
 - name: Add PPAs
   apt_repository: repo={{ item }} state=present
   with_items:
@@ -150,6 +147,9 @@
   copy: src=grub dest=/etc/default/grub owner=root group=root mode=0644
   notify:
     - grub
+
+- name: Copy sane defaults
+  copy: src=defaults.list dest=/usr/share/applications/defaults.list owner=root group=root mode=0644
 
 - name: Copy sudoers file
   copy: src=cv.sudoers dest=/etc/sudoers.d/cv owner=root group=root mode=0644
