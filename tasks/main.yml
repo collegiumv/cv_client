@@ -104,7 +104,7 @@
   command: dpkg-reconfigure -u --frontend noninteractive unattended-upgrades
 
 - name: Copy automatic-upgrades config
-  copy: src=50unattended-upgrades dest=etc/apt/apt.conf.d/50unattended-upgrades owner=root group=root mode=0644
+  copy: src=50unattended-upgrades dest=/etc/apt/apt.conf.d/50unattended-upgrades owner=root group=root mode=0644
 
 - name: Clobber Google-Chrome.list
   file: path=/etc/apt/sources.list.d/google-chrome.list state=absent
