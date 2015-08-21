@@ -86,6 +86,11 @@
     - wine
     - zsh
 
+- name: Make Chrome use system printing dialog
+  lineinfile: dest=/usr/share/applications/google-chrome.desktop insertafter='^Exec=/usr/bin/google-chrome-stable %U$' line="Exec=/usr/bin/google-chrome-stable --args --disable-print-preview %U" state=present
+  lineinfile: dest=/usr/share/applications/google-chrome.desktop insertafter='^Exec=/usr/bin/google-chrome-stable$' line="Exec=/usr/bin/google-chrome-stable --args --disable-print-preview" state=present
+  lineinfile: dest=/usr/share/applications/google-chrome.desktop insertafter='^Exec=/usr/bin/google-chrome-stable --incognito$' line="Exec=/usr/bin/google-chrome-stable --incognito --args --disable-print-preview" state=present
+
 - name: Note Microsoft Fonts License
   debconf: name=ttf-mscorefonts-installer question='msttcorefonts/noted-mscorefonts-eula' value=true vtype=note
 
