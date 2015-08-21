@@ -1,18 +1,16 @@
 ---
+- include_vars: wps.yml
+
 - name: Check for WPS Office
-  stat: path=/opt/kingsoft
+  stat: path=/opt/kingsoft/{{ wpsUrl | regex_replace('.*/', '') }}
   register: wps
 
 - name: Download WPS Office
-  get_url: url=http://kdl.cc.ksosoft.com/wps-community/download/a19/wps-office_9.1.0.4975~a19p1_amd64.deb dest=/tmp/wps-office_9.1.0.4975~a19p1_amd64.deb
+  get_url: url={{ wpsUrl }} dest=/opt/kingsoft/{{ wpsUrl | regex_replace('.*/', '') }}
   when: wps.stat.exists == False
 
 - name: Install WPS Office
-  apt: deb=/tmp/wps-office_9.1.0.4975~a19p1_amd64.deb state=present
-  when: wps.stat.exists == False
-
-- name: Remove WPS Office deb
-  file: path=/tmp/wps-office_9.1.0.4975~a19p1_amd64.deb state=absent
+  apt: deb=/opt/kingsoft/{{ wpsUrl | regex_replace('.*/', '') }} state=present
   when: wps.stat.exists == False
 
 - name: Install Microsoft Fonts
