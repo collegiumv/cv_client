@@ -14,6 +14,7 @@
     - ppa:klaus-vormweg/awesome
     - ppa:videolan/stable-daily
     - ppa:lestcape/cinnamon
+    - ppa:hansjorg/rust
 
 - name: Add Google Chrome Repository
   apt_repository: repo='deb http://dl.google.com/linux/chrome/deb/ stable main' state=present
@@ -49,11 +50,14 @@
   with_items:
     - build-essential
     - eclipse
+    - codeblocks
     - git
     - openjdk-7-jdk
     - r-base
     - r-base-dev
+    - shelldap
     - spim
+    - rust-stable
 
 - name: Install additional editors
   apt: name={{ item }} state=present
@@ -71,10 +75,13 @@
 - name: Install additional misc. programs
   apt: name={{ item }} state=present
   with_items:
+    - kaffeine
+    - dtrx
     - firefox
     - google-chrome-stable
     - gap
     - htop
+    - icedtea-plugin
     - keepass2
     - mlocate
     - mosh
@@ -85,9 +92,58 @@
     - sl
     - tcpdump
     - tmux
+    - tree
     - ubuntu-restricted-extras
     - wine
     - zsh
+
+- name: Support more python development
+  apt: name={{ item }} state=present
+  with_items:
+    - cython
+    - idle
+    - ipython
+    - ipython-notebook
+    - ipython3
+    - ipython3-notebook
+    - pypy
+    - python-dev
+    - python-greenlet
+    - python-matplotlib
+    - python-mvpa
+    - python-nltk
+    - python-numpy
+    - python-opencv
+    - python-scientific
+    - python-scipy
+    - python-twisted
+    - weka
+
+- name: Support python development
+  pip: name={{ item }} state=present
+  with_items:
+    - Cheetah
+    - Orange
+    - PyBrain
+    - babel
+    - beautifulsoup4
+    - deepy
+    - featureforge
+    - gplearn
+    - hmmlearn
+    - lltk
+    - mccabe
+    - mltool
+    - pypmc
+    - pyrallel
+    - pystruct
+    - rlpy
+    - scikit-learn
+    - scikit-neuralnetwork
+    - seqlearn
+    - simpleai
+    - skll
+    - thefuck
 
 - name: Make Chrome use system printing dialog
   replace: dest=/usr/share/applications/google-chrome.desktop regexp='^Exec=/usr/bin/google-chrome-stable' replace='Exec=/usr/bin/google-chrome-stable --args --disable-print-preview'
