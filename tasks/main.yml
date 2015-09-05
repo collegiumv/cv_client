@@ -127,6 +127,7 @@
     - PyBrain
     - babel
     - beautifulsoup4
+    - theano
     - deepy
     - featureforge
     - gplearn
