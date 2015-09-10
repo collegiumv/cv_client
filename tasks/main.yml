@@ -51,6 +51,8 @@
     - eclipse
     - git
     - openjdk-7-jdk
+    - r-base
+    - r-base-dev
     - spim
 
 - name: Install additional editors
@@ -76,6 +78,7 @@
     - keepass2
     - mlocate
     - mosh
+    - pavucontrol
     - redshift
     - rxvt-unicode-256color
     - shutter
