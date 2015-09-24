@@ -235,6 +235,12 @@
 - name: Disable light-locker
   file: path=/etc/xdg/autostart/light-locker.desktop state=absent
 
+- name: Copy Old Session Killer
+  copy: src=kill-old-users.sh dest=/usr/local/sbin/kill-old-users.sh owner=root group=root mode=0544
+
+- name: Add Old Session Killer to Crontab
+  copy: src=cleanup dest=/etc/cron.d/cleanup owner=root group=root mode=0544
+
 - include: wps.yml
 
 - include: scanner.yml
