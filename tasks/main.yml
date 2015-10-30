@@ -6,7 +6,7 @@
 
 - name: Add Google Chrome Signing Key
   apt_key: url=https://dl.google.com/linux/linux_signing_key.pub state=present
-  
+
 - name: Add PPAs
   apt_repository: repo={{ item }} state=present
   with_items:
@@ -42,6 +42,7 @@
     - libreoffice
     - okular
     - texlive
+    - texlive-science
     - texmaker
     - texstudio
 
