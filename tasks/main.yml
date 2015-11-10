@@ -224,6 +224,9 @@
 - name: Copy sane defaults
   copy: src=defaults.list dest=/usr/share/applications/defaults.list owner=root group=root mode=0644
 
+- name: Delete evince desktop file
+  file: path=/usr/share/applications/evince.desktop state=absent
+
 - name: Copy sudoers file
   copy: src=cv.sudoers dest=/etc/sudoers.d/cv owner=root group=root mode=0644
 
