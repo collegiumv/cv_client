@@ -13,7 +13,7 @@
     - ppa:keithw/mosh
     - ppa:klaus-vormweg/awesome
     - ppa:videolan/stable-daily
-    - ppa:lestcape/cinnamon
+    - ppa:kranich/cinnamon
     - ppa:hansjorg/rust
 
 - name: Add Google Chrome Repository
@@ -27,6 +27,7 @@
     - awesome-extra
     - i3
     - xfce4
+    - "^cinnamon-.+"
   notify:
     - lightdm
 
