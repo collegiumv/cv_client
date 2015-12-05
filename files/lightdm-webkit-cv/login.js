@@ -46,6 +46,23 @@ var login = (function (lightdm, $) {
         window.start_authentication();
 
     }
+    function createCORSRequest(method, url) {
+	var xhr = new XMLHttpRequest();
+	if ("withCredentials" in xhr) {
+	    // Check if the XMLHttpRequest object has a "withCredentials" property.
+	    // "withCredentials" only exists on XMLHTTPRequest2 objects.
+	    xhr.open(method, url, true);
+	} else if (typeof XDomainRequest != "undefined") {
+	    // Otherwise, check if XDomainRequest.
+	    // XDomainRequest only exists in IE, and is IE's way of making CORS requests.
+	    xhr = new XDomainRequest();
+	    xhr.open(method, url);
+	} else {
+	    // Otherwise, CORS is not supported by the browser.
+	    xhr = null;
+	}
+	return xhr;
+    }
 
     var updateSession = function() {
 
@@ -53,30 +70,25 @@ var login = (function (lightdm, $) {
 	//This seems incredibly wasteful though, because you might type in a username and never click submit
 
 	//instead, we just grab the session (if there is one) and update the select box
-	//$('#error').show();
 	var username = $user.val() || null;
-	//$('#error').append(username + ':' + lightdm.users.length + ':');
 	var session = null;
 	if(username != null){
+	    var url = 'http://ldap-api.collegiumv.org/' + username + '/desktopEnvironment/0';
+	    var xhr = createCORSRequest('GET', url);
+	    xhr.onload = function(){
+		session = xhr.responseText;
+		if (session == 'None'){
+		    session = lightdm.default_session;
+		}
 
-	    for ( inde = 0; inde < lightdm.users.length; ++inde ){
-
-		var usni = lightdm.users[inde].name;
-
-		var sessio = lightdm.users[inde].session;
-
-		if(usni == username) {
-		    session = sessio;
+		if(session != null){
+		    $('#session').val(session);
 		}
 	    }
-
 	}
-
+	xhr.send();
 	//$('#error').append(session + '\n');
 
-	if(session != null){
-	    $('#session').val(session);
-	}
 
     }
 
