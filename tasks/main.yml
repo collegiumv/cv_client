@@ -27,7 +27,7 @@
     - awesome-extra
     - i3
     - xfce4
-    - "^cinnamon-.+"
+    - cinnamon
   notify:
     - lightdm
 
