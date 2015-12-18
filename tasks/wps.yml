@@ -1,6 +1,9 @@
 ---
 - include_vars: wps.yml
 
+- name: Ensure wps directory exists
+  file: path=/opt/kingsoft state=directory owner=root group=root mode=0755
+
 - name: Check for WPS Office
   stat: path=/opt/kingsoft/{{ wpsUrl | regex_replace('.*/', '') }}
   register: wps
