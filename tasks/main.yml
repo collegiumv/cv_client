@@ -80,8 +80,9 @@
     - kaffeine
     - dtrx
     - firefox
-    - google-chrome-stable
     - gap
+    - gnupg-agent
+    - google-chrome-stable
     - htop
     - icedtea-plugin
     - keepass2
