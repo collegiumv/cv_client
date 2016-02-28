@@ -71,20 +71,23 @@ var login = (function (lightdm, $) {
 
 	//instead, we just grab the session (if there is one) and update the select box
 	var username = $user.val() || null;
-	var session = null;
+        var session = lightdm.default_session;
 	if(username != null){
 	    var url = 'http://ldap-api.collegiumv.org/' + username + '/desktopEnvironment/0';
 	    var xhr = createCORSRequest('GET', url);
 	    xhr.onload = function(){
 		session = xhr.responseText;
-		if (session == 'None'){
+                if (session == 'N'){
 		    session = lightdm.default_session;
 		}
 
 		if(session != null){
 		    $('#session').val(session);
 		}
-	    }
+            }
+            xhr.onerror = function(){
+                $('#session').val(lightdm.default_session);
+            }
 	}
 	xhr.send();
 	//$('#error').append(session + '\n');
