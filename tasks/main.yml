@@ -15,6 +15,7 @@
     - ppa:videolan/stable-daily
     - ppa:kranich/cinnamon
     - ppa:hansjorg/rust
+    - ppa:neovim-ppa/unstable
 
 - name: Add Google Chrome Repository
   apt_repository: repo='deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' state=present
@@ -67,6 +68,7 @@
   apt: name={{ item }} state=present
   with_items:
     - emacs
+    - neovim
     - vim-gtk
 
 - name: Install media playback programs
@@ -120,6 +122,9 @@
     - python-scipy
     - python-twisted
     - weka
+
+- name: Install python plugin support for neovim
+  pip: name=neovim state=present
 
 - name: Make Chrome use system printing dialog
   replace: dest=/usr/share/applications/google-chrome.desktop regexp='^Exec=/usr/bin/google-chrome-stable' replace='Exec=/usr/bin/google-chrome-stable --args --disable-print-preview'
