@@ -53,10 +53,12 @@
     - build-essential
     - eclipse
     - codeblocks
+    - ghc
     - git
     - openjdk-7-jdk
     - r-base
     - r-base-dev
+    - racket
     - shelldap
     - spim
     - rust-stable
