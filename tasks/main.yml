@@ -85,6 +85,7 @@
     - gap
     - gnupg-agent
     - google-chrome-stable
+    - gtk-redshift
     - htop
     - icedtea-plugin
     - keepass2
