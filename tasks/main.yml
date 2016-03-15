@@ -17,7 +17,7 @@
     - ppa:hansjorg/rust
 
 - name: Add Google Chrome Repository
-  apt_repository: repo='deb http://dl.google.com/linux/chrome/deb/ stable main' state=present
+  apt_repository: repo='deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' state=present
 
 - name: Install graphical environments
   apt: name={{ item }} state=present
