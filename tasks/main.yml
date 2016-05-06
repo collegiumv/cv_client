@@ -4,181 +4,94 @@
   notify:
   - iptables
 
-- name: Add Google Chrome Signing Key
-  apt_key: url=https://dl.google.com/linux/linux_signing_key.pub state=present
-
-- name: Add PPAs
-  apt_repository: repo={{ item }} state=present
+- name: Install additional repos
+  xbps: name={{ item }} state=present
   with_items:
-    - ppa:keithw/mosh
-    - ppa:klaus-vormweg/awesome
-    - ppa:videolan/stable-daily
-    - ppa:kranich/cinnamon
-    - ppa:hansjorg/rust
-    - ppa:neovim-ppa/unstable
-
-- name: Add Google Chrome Repository
-  apt_repository: repo='deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' state=present
+    - void-repo-nonfree
+    - void-repo-multilib
+    - void-repo-multilib-nonfree
 
 - name: Install graphical environments
-  apt: name={{ item }} state=present
+  xbps: name={{ item }} state=present
   with_items:
-    - lubuntu-desktop
+    - xorg
+    - lxde
     - awesome
-    - awesome-extra
     - i3
+    - i3status
+    - dmenu
     - xfce4
     - cinnamon
   notify:
     - lightdm
 
 - name: Install editing suites
-  apt: name={{ item }} state=present
+  xbps: name={{ item }} state=present
   with_items:
     - gedit
     - gimp
-    - gimp-data
-    - gimp-data-extras
-    - gimp-plugin-registry
     - inkscape
     - libreoffice
-    - okular
-    - texlive
-    - texlive-science
-    - texmaker
-    - texstudio
 
 - name: Install programming tools
-  apt: name={{ item }} state=present
+  xbps: name={{ item }} state=present
   with_items:
-    - build-essential
+    - base-devel
     - eclipse
     - codeblocks
     - ghc
-    - git
-    - openjdk-7-jdk
-    - r-base
-    - r-base-dev
+    - git-all
+    - openjdk
+    - R
     - racket
-    - shelldap
     - spim
-    - rust-stable
+    - rust
+    - cargo
 
 - name: Install additional editors
-  apt: name={{ item }} state=present
+  xbps: name={{ item }} state=present
   with_items:
     - emacs
     - neovim
-    - vim-gtk
+    - python-neovim
+    - python3.4-neovim
+    - gvim
 
 - name: Install media playback programs
-  apt: name={{ item }} state=present
+  xbps: name={{ item }} state=present
   with_items:
     - audacity
     - mpv
     - vlc
 
 - name: Install additional misc. programs
-  apt: name={{ item }} state=present
+  xbps: name={{ item }} state=present
   with_items:
-    - kaffeine
     - dtrx
     - firefox
-    - gap
-    - gnupg-agent
-    - google-chrome-stable
-    - gtk-redshift
+    - gnupg2
+    - redshift-gtk
     - htop
-    - icedtea-plugin
-    - keepass2
+    - keepassx2
     - mlocate
     - mosh
-    - pavucontrol
     - redshift
-    - rxvt-unicode-256color
-    - shutter
+    - rxvt-unicode
+    - urxvt-perls
     - sl
     - tcpdump
     - tmux
     - tree
-    - ubuntu-restricted-extras
-    - wine
+    - wine-32bit
     - zsh
-
-- name: Support more python development
-  apt: name={{ item }} state=present
-  with_items:
-    - cython
-    - idle
-    - ipython
-    - ipython-notebook
-    - ipython3
-    - ipython3-notebook
-    - python-dev
-    - python-matplotlib
-    - python-numpy
-    - python-opencv
-    - python-scientific
-    - python-scipy
-    - python-twisted
-    - weka
-
-- name: Install python plugin support for neovim
-  pip: name=neovim state=present
-
-- name: Make Chrome use system printing dialog
-  replace: dest=/usr/share/applications/google-chrome.desktop regexp='^Exec=/usr/bin/google-chrome-stable' replace='Exec=/usr/bin/google-chrome-stable --args --disable-print-preview'
-
-- name: Note Microsoft Fonts License
-  debconf: name=ttf-mscorefonts-installer question='msttcorefonts/noted-mscorefonts-eula' value=true vtype=note
-
-- name: Accept Microsoft Fonts License
-  debconf: name=ttf-mscorefonts-installer question='msttcorefonts/accepted-mscorefonts-eula' value=true vtype=boolean
-
-- name: Allow automatic upgrades
-  debconf: name=unattended-upgrades question='unattended-upgrades/enable_auto_updates' value=true vtype=boolean
-
-- name: Reconfigure unattended-upgrades
-  command: dpkg-reconfigure -u --frontend noninteractive unattended-upgrades
-
-- name: Copy automatic-upgrades config
-  copy: src=50unattended-upgrades dest=/etc/apt/apt.conf.d/50unattended-upgrades owner=root group=root mode=0644
-
-- name: Clobber Google-Chrome.list
-  file: path=/etc/apt/sources.list.d/google-chrome.list state=absent
 
 - name: Copy fix screens
   copy: src=fixScreens dest=/usr/local/bin/fixScreens owner=root group=root mode=0755
 
+- name: Install lightdm
+  xbps: pkg=lightdm state=present
+
 - include: greeter.yml
-
-- name: Check to see if default awesome conf is already moved
-  stat: path=/etc/xdg/awesome/rc.lua.default
-  register: default_awesome
-
-- name: Move awesome rc.lua to rc.lua.default
-  command: mv /etc/xdg/awesome/rc.lua /etc/xdg/awesome/rc.lua.default
-  when: default_awesome.stat.exists == False
-
-- name: Check to see if default i3 conf is already moved
-  stat: path=/etc/i3/config.default
-  register: default_i3
-
-- name: Move i3 config to config.default
-  command: mv /etc/i3/config /etc/i3/config.default
-  when: default_i3.stat.exists == False
-
-- name: Copy over our non-friendly awesome config
-  copy: src=awesome.conf dest=/etc/xdg/awesome/rc.lua owner=root group=root mode=0644
-
-- name: Copy over our non-friendly i3 config
-  copy: src=i3.conf dest=/etc/i3/config owner=root group=root mode=0644
-
-- name: Disable Apport
-  copy: src=apport.default dest=/etc/default/apport owner=root group=root mode=0644
-
-- name: Disable update notifier autostart
-  file: path=/etc/xdg/autostart/update-notifier.desktop state=absent
 
 - name: Copy xdg autostarts
   copy: src={{ item }} dest=/etc/xdg/autostart/{{ item }} owner=root group=root mode=0644
@@ -192,22 +105,11 @@
 - name: Copy xscreensaver app-default config
   copy: src=XScreenSaver dest=/usr/lib/X11/app-defaults/XScreenSaver owner=root group=root mode=0644
 
-- name: Copy xscreensaver default config
-  copy: src=xscreensaver-config dest=/usr/share/lubuntu/xscreensaver/xscreensaver owner=root group=root mode=0644
-
-- name: Copy grub default override
-  copy: src=grub dest=/etc/default/grub owner=root group=root mode=0644
-  notify:
-    - grub
-
 - name: Copy sane defaults
   copy: src=defaults.list dest=/usr/share/applications/defaults.list owner=root group=root mode=0644
 
-- name: Delete evince desktop file
-  file: path=/usr/share/applications/evince.desktop state=absent
-
 - name: Copy sudoers file
-  copy: src=cv.sudoers dest=/etc/sudoers.d/cv owner=root group=root mode=0644
+  copy: src=cv.sudoers dest=/etc/sudoers.d/cv_local owner=root group=root mode=0644
 
 - name: Copy change-password
   copy: src=change_password.py dest=/usr/local/bin/change-password owner=root group=root mode=0555
@@ -215,15 +117,23 @@
 - name: Copy change-password Desktop file
   copy: src=change-password.desktop dest=/usr/share/applications/change-password.desktop owner=root group=root mode=0644
 
-- name: Disable light-locker
-  file: path=/etc/xdg/autostart/light-locker.desktop state=absent
+- name: Install change-password dependencies
+  xbps: pkg=python-tkinter state=present
 
 - name: Copy Old Session Killer
   copy: src=kill-old-users.sh dest=/usr/local/sbin/kill-old-users.sh owner=root group=root mode=0544
 
+# MIGRATE THIS TO BASE
+- name: Install cron
+  xbps: pkg=dcron state=present
+
 - name: Add Old Session Killer to Crontab
   copy: src=cleanup dest=/etc/cron.d/cleanup owner=root group=root mode=0544
 
-- include: wps.yml
-
-- include: scanner.yml
+- name: Enable various services
+  file: src=/etc/sv/{{ item }} dest=/var/service/{{ item }} state=link owner=root group=root
+  with_items:
+    - dcron
+    - dbus
+    - lightdm
+    
