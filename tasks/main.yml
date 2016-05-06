@@ -4,13 +4,6 @@
   notify:
   - iptables
 
-- name: Install additional repos
-  xbps: name={{ item }} state=present
-  with_items:
-    - void-repo-nonfree
-    - void-repo-multilib
-    - void-repo-multilib-nonfree
-
 - name: Install graphical environments
   xbps: name={{ item }} state=present
   with_items:
@@ -56,6 +49,7 @@
     - python-neovim
     - python3.4-neovim
     - gvim
+    - sublime-text3
 
 - name: Install media playback programs
   xbps: name={{ item }} state=present
@@ -68,8 +62,10 @@
   xbps: name={{ item }} state=present
   with_items:
     - dtrx
+    - evince
     - firefox
     - gnupg2
+    - google-chrome
     - redshift-gtk
     - htop
     - keepassx2
@@ -83,6 +79,7 @@
     - tmux
     - tree
     - wine-32bit
+    - wps-office
     - zsh
 
 - name: Copy fix screens
@@ -90,6 +87,9 @@
 
 - name: Install lightdm
   xbps: pkg=lightdm state=present
+
+- name: Make lightdm use system-auth
+  file: src=/etc/pam.d/system-auth dest=/etc/pam.d/lightdm state=link force=yes
 
 - include: greeter.yml
 
@@ -123,17 +123,11 @@
 - name: Copy Old Session Killer
   copy: src=kill-old-users.sh dest=/usr/local/sbin/kill-old-users.sh owner=root group=root mode=0544
 
-# MIGRATE THIS TO BASE
-- name: Install cron
-  xbps: pkg=dcron state=present
-
 - name: Add Old Session Killer to Crontab
   copy: src=cleanup dest=/etc/cron.d/cleanup owner=root group=root mode=0544
 
 - name: Enable various services
   file: src=/etc/sv/{{ item }} dest=/var/service/{{ item }} state=link owner=root group=root
   with_items:
-    - dcron
     - dbus
     - lightdm
-    

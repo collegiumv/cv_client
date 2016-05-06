@@ -8,8 +8,8 @@ EOF
 
 if [ "$x1" -gt "$x2" ]; then
 	xrandr --output "$mon1" --auto --primary
-	xrandr --output "$mon2" --auto --pos "${x1}x$(( y1 - y2 ))"
+	xrandr --output "$mon2" --auto --right-of "$mon1"
 else
 	xrandr --output "$mon2" --auto --primary
-	xrandr --output "$mon1" --auto --pos "${x2}x$(( y2 - y1 ))"
+	xrandr --output "$mon1" --auto --right-of "$mon2"
 fi
