@@ -105,9 +105,6 @@
 - name: Copy xscreensaver app-default config
   copy: src=XScreenSaver dest=/usr/lib/X11/app-defaults/XScreenSaver owner=root group=root mode=0644
 
-- name: Copy sane defaults
-  copy: src=defaults.list dest=/usr/share/applications/defaults.list owner=root group=root mode=0644
-
 - name: Copy sudoers file
   copy: src=cv.sudoers dest=/etc/sudoers.d/cv_local owner=root group=root mode=0644
 
