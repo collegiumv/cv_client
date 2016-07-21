@@ -80,6 +80,7 @@
     - tree
     - wine-32bit
     - wps-office
+    - xscreensaver
     - zsh
 
 - name: Copy fix screens
@@ -118,10 +119,10 @@
   xbps: pkg=python-tkinter state=present
 
 - name: Copy Old Session Killer
-  copy: src=kill-old-users.sh dest=/usr/local/sbin/kill-old-users.sh owner=root group=root mode=0544
+  copy: src=kill-old-users.sh dest=/usr/local/sbin/kill-old-users.sh owner=root group=root mode=0755
 
 - name: Add Old Session Killer to Crontab
-  copy: src=cleanup dest=/etc/cron.d/cleanup owner=root group=root mode=0544
+  copy: src=cleanup dest=/etc/cron.d/cleanup owner=root group=root mode=0644
 
 - name: Enable various services
   file: src=/etc/sv/{{ item }} dest=/var/service/{{ item }} state=link owner=root group=root

@@ -3,4 +3,4 @@
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
-* * * * * root kill-old-users.sh
+* * * * * root kill-old-users.sh 2>/dev/null 1>/dev/null
