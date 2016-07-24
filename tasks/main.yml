@@ -92,6 +92,9 @@
 - name: Make lightdm use system-auth
   file: src=/etc/pam.d/system-auth dest=/etc/pam.d/lightdm state=link force=yes
 
+- name: Make xbps ignore the system-auth link
+  lineinfile: dest=/etc/xbps.d/preserved-files.conf line="preserve=/etc/pam.d/lightdm" create=yes state=present
+
 - include: greeter.yml
 
 - name: Copy xdg autostarts
