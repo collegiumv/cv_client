@@ -100,7 +100,6 @@
 - name: Copy xdg autostarts
   copy: src={{ item }} dest=/etc/xdg/autostart/{{ item }} owner=root group=root mode=0644
   with_items:
-    - xscreensaver.desktop
     - pc-client-linux.desktop
 
 - name: Assures that app-default exists
