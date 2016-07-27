@@ -65,6 +65,16 @@
     - firefox
     - google-chrome
 
+- name: Install Scanner programs
+  xbps: name={{ item }} state=present
+  with_items:
+    - simple-scan
+    - sane
+    - sane-epkowa
+    - iscan
+    - iscan-data
+    - iscan-plugin-gt-s605
+
 - name: Install additional misc. programs
   xbps: name={{ item }} state=present
   with_items:
