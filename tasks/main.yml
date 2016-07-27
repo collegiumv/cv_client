@@ -58,14 +58,19 @@
     - mpv
     - vlc
 
+- name: Install Web Browsers
+  xbps: name={{ item }} state=present
+  with_items:
+    - chromium
+    - firefox
+    - google-chrome
+
 - name: Install additional misc. programs
   xbps: name={{ item }} state=present
   with_items:
     - dtrx
     - evince
-    - firefox
     - gnupg2
-    - google-chrome
     - redshift-gtk
     - htop
     - keepassx2
