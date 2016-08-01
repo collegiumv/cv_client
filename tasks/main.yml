@@ -73,7 +73,7 @@
     - sane-epkowa
     - iscan
     - iscan-data
-    - iscan-plugin-gt-s605
+    - iscan-plugin-gt-s650
 
 - name: Install additional misc. programs
   xbps: name={{ item }} state=present
