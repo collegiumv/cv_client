@@ -18,6 +18,13 @@
   notify:
     - lightdm
 
+- name: Install various system services
+  xbps: name={{ item }} state=present
+  with_items:
+    - ConsoleKit2
+    - cgmanager
+    - dbus
+
 - name: Install editing suites
   xbps: name={{ item }} state=present
   with_items:
@@ -141,8 +148,13 @@
 - name: Add Old Session Killer to Crontab
   copy: src=cleanup dest=/etc/cron.d/cleanup owner=root group=root mode=0644
 
+- name: Install lightdm cleanup script
+  copy: src=lightdm-cleanup dest=/usr/local/sbin/lightdm-cleanup owner=root group=root mode=0755
+
 - name: Enable various services
   file: src=/etc/sv/{{ item }} dest=/var/service/{{ item }} state=link owner=root group=root
   with_items:
+    - consolekit
+    - cgmanager
     - dbus
     - lightdm
