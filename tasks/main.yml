@@ -18,6 +18,14 @@
   notify:
     - lightdm
 
+- name: Install graphics libraries
+  xbps: name={{ item }} state=present
+  with_items:
+    - libXrandr-32bit
+    - libXt-32bit
+    - mesa-ati-dri-32bit
+    - mesa-intel-dri-32bit
+
 - name: Install various system services
   xbps: name={{ item }} state=present
   with_items:
@@ -62,7 +70,10 @@
   xbps: name={{ item }} state=present
   with_items:
     - audacity
+    - alsa-lib
+    - alsa-utils
     - mpv
+    - pulseaudio
     - vlc
 
 - name: Install Web Browsers
@@ -87,22 +98,25 @@
   with_items:
     - dtrx
     - evince
+    - feh
     - gnupg2
-    - redshift-gtk
     - htop
     - keepassx2
     - mlocate
     - mosh
     - redshift
+    - redshift-gtk
     - rxvt-unicode
-    - urxvt-perls
     - sl
     - tcpdump
     - tmux
     - tree
+    - urxvt-perls
     - wine-32bit
     - wps-office
+    - xclip
     - xscreensaver
+    - xsel
     - zsh
 
 - name: Copy fix screens
