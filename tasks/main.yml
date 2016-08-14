@@ -119,8 +119,12 @@
     - xsel
     - zsh
 
-- name: Copy fix screens
-  copy: src=fixScreens dest=/usr/local/bin/fixScreens owner=root group=root mode=0755
+- name: Copy lightdm scripts
+  copy: src={{ item }} dest=/usr/local/bin/{{ item }} owner=root group=root mode=0755
+  with_items:
+    - fixScreens
+    - lightdm-setup
+    - lightdm-cleanup
 
 - name: Install lightdm
   xbps: pkg=lightdm state=present
@@ -132,11 +136,6 @@
   lineinfile: dest=/etc/xbps.d/preserved-files.conf line="preserve=/etc/pam.d/lightdm" create=yes state=present
 
 - include: greeter.yml
-
-- name: Copy xdg autostarts
-  copy: src={{ item }} dest=/etc/xdg/autostart/{{ item }} owner=root group=root mode=0644
-  with_items:
-    - pc-client-linux.desktop
 
 - name: Assures that app-default exists
   file: path=/usr/lib/X11/app-defaults state=directory
@@ -150,8 +149,19 @@
 - name: Copy change-password
   copy: src=change_password.py dest=/usr/local/bin/change-password owner=root group=root mode=0555
 
-- name: Copy change-password Desktop file
-  copy: src=change-password.desktop dest=/usr/share/applications/change-password.desktop owner=root group=root mode=0644
+- name: Copy custom *.desktop files
+  copy: src={{ item }}.desktop dest=/usr/share/applications/{{ item }}.desktop owner=root group=root mode=0644
+  with_items:
+    - change-password
+    - fixScreens
+    - pc-client-linux
+    - xscreensaver
+
+- name: Set XDG Autostarts
+  file: src=/usr/share/applications/{{item}}.desktop dest=/etc/xdg/autostart/{{ item }}.desktop state=link owner=root group=root mode=0644
+  with_items:
+    - fixScreens
+    - pc-client-linux
 
 - name: Install change-password dependencies
   xbps: pkg=python-tkinter state=present
@@ -161,9 +171,6 @@
 
 - name: Add Old Session Killer to Crontab
   copy: src=cleanup dest=/etc/cron.d/cleanup owner=root group=root mode=0644
-
-- name: Install lightdm cleanup script
-  copy: src=lightdm-cleanup dest=/usr/local/sbin/lightdm-cleanup owner=root group=root mode=0755
 
 - name: Enable various services
   file: src=/etc/sv/{{ item }} dest=/var/service/{{ item }} state=link owner=root group=root
