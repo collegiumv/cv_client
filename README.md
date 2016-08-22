@@ -1,7 +1,7 @@
 # CVOS - The Premier Honors Computing Experience
 
 ##Summary
-CVOS (CEE-VOS) is a a customized system designed for the Collegium V Honors College.  By default, CVOS loads the LXDE desktop environment, providing a familiar interface for Windows users.  The entire user experience is fully customizable should the defaults not be satisfactory.  CVOS comes with a variety of software packages, including web browsers, office suites, image editing software, and much more.
+CVOS (CEE-VOS) is a a customized system designed for the Collegium V Honors College.  By default, CVOS loads the Cinnamon desktop environment, providing a familiar interface for Windows users.  The entire user experience is fully customizable should the defaults not be satisfactory.  CVOS comes with a variety of software packages, including web browsers, office suites, image editing software, and much more.
 
 ##Requesting additional software
 In the event you would like software which is not included in the CVOS default installation, don't hesitate to request it.  Software requests should be submitted to [this page](https://github.com/collegiumv/cv_client_bleeding/issues).  Please provide a summary of the program's usefulness, a link to the software package (if possible), and a note of any special requirements or configurations (if applicable).
