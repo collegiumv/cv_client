@@ -36,7 +36,6 @@
 - name: Install editing suites
   xbps: name={{ item }} state=present
   with_items:
-    - gedit
     - gimp
     - inkscape
     - libreoffice
@@ -60,6 +59,7 @@
   xbps: name={{ item }} state=present
   with_items:
     - emacs
+    - gedit
     - neovim
     - python-neovim
     - python3.4-neovim
