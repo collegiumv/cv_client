@@ -15,6 +15,7 @@
     - dmenu
     - xfce4
     - cinnamon
+    - bspwm
   notify:
     - lightdm
 
