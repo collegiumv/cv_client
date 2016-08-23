@@ -16,6 +16,7 @@
     - xfce4
     - cinnamon
     - bspwm
+    - sxhkd
   notify:
     - lightdm
 
