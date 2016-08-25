@@ -111,6 +111,7 @@
     - redshift
     - redshift-gtk
     - rxvt-unicode
+    - scrot
     - sl
     - tcpdump
     - tmux
