@@ -99,7 +99,6 @@
 - name: Install additional misc. programs
   xbps: name={{ item }} state=present
   with_items:
-    - dtrx
     - evince
     - feh
     - fuse-exfat
@@ -123,6 +122,15 @@
     - xscreensaver
     - xsel
     - zsh
+
+- name: Install archive management software
+  xbps: pkg={{ item }} state=present
+  with_items:
+    - dtrx
+    - p7zip
+    - thunar-archive-plugin
+    - unzip
+    - xarchiver
 
 - name: Copy lightdm scripts
   copy: src={{ item }} dest=/usr/local/bin/{{ item }} owner=root group=root mode=0755
