@@ -170,6 +170,7 @@
   with_items:
     - change-password
     - fixScreens
+    - fixMimes
     - pc-client-linux
     - xscreensaver
 
@@ -187,6 +188,15 @@
 
 - name: Add Old Session Killer to Crontab
   copy: src=cleanup dest=/etc/cron.d/cleanup owner=root group=root mode=0644
+
+- name: Set default mimeapps.list
+  copy: src=mimeapps.list dest=/etc/xdg/mimeapps.list owner=root group=root mode=0644
+
+- name: Link alternate default mimeapps.list
+  file: src=/etc/xdg/mimeapps.list dest=/usr/share/applications/mimeapps.list state=link
+
+- name: Copy fixMimes
+  copy: src=fixMimes dest=/usr/local/bin/fixMimes owner=root group=root mode=0755
 
 - name: Enable various services
   file: src=/etc/sv/{{ item }} dest=/var/service/{{ item }} state=link owner=root group=root
