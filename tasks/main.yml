@@ -85,6 +85,7 @@
     - chromium
     - firefox
     - google-chrome
+    - opera
 
 - name: Install Scanner programs
   xbps: name={{ item }} state=present
