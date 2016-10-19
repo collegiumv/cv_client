@@ -76,6 +76,7 @@
     - audacity
     - alsa-lib
     - alsa-utils
+    - libdvdcss
     - mpv
     - pulseaudio
     - vlc
