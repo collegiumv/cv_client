@@ -57,6 +57,7 @@
     - rust
     - cargo
     - texlive-bin
+    - xterm
 
 - name: Install additional editors
   xbps: name={{ item }} state=present
