@@ -81,6 +81,7 @@
     - libdvdcss
     - mpv
     - pulseaudio
+    - spotify
     - vlc
 
 - name: Install Web Browsers
