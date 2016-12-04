@@ -48,6 +48,7 @@
     - base-devel
     - eclipse
     - codeblocks
+    - gdb
     - ghc
     - git-all
     - openjdk
@@ -57,6 +58,7 @@
     - rust
     - cargo
     - texlive-bin
+    - valgrind
     - xterm
 
 - name: Install additional editors
